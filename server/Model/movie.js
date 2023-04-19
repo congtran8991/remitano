@@ -5,8 +5,8 @@ const movie = new schema({
     type: String,
     required: true,
   },
-  userId: {
-    type: schema.Types.ObjectId,
+  user: {
+    type: Object,
     ref: "user"
   }
 });
