@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const apiUser = require("./Api/userLogin");
 const apiMovie = require("./Api/movie");
 const app = express();
-const port = "https://remitano-eta.vercel.app/";
+const port = 4000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
