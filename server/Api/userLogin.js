@@ -7,7 +7,6 @@ const checkToken = require("./checkToken");
 const { validateEmail } = require("../Utils");
 const auth = checkToken.checkToken;
 const { JWT_SECRET } = process.env;
-
 const router = express.Router();
 
 router.post("/regis", async (req, res) => {
@@ -28,7 +27,7 @@ router.post("/regis", async (req, res) => {
 
     if (user) {
       const payload = { email, id: user.id };
-      const token = jwt.sign(payload, "SECRET");
+      const token = jwt.sign(payload, JWT_SECRET);
 
       const isPasswordMatch = await bcrypt.compare(passWord, user.passWord);
 
@@ -53,7 +52,7 @@ router.post("/regis", async (req, res) => {
       const savedUser = await newUser.save();
 
       const payload = { email, id: savedUser.id };
-      const token = jwt.sign(payload, "SECRET");
+      const token = jwt.sign(payload, JWT_SECRET);
 
       return res.status(200).json({
         success: true,

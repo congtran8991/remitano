@@ -1,11 +1,13 @@
 const express = require("express");
+require("dotenv").config();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const apiUser = require("./Api/userLogin");
 const apiMovie = require("./Api/movie");
 const app = express();
-const port = "https://remitano-eta.vercel.app/";
-
+const { MONGO_URI } = process.env;
+const port = "4000";
+// console.log(process.env)
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(function (req, res, next) {
@@ -30,9 +32,6 @@ app.listen(port, () => {
 });
 
 mongoose
-  .connect(
-    "mongodb+srv://congtran8991:PYdZxei8ERjKwqXF@cluster0.xyento7.mongodb.net/DbRemi",
-    { useUnifiedTopology: true, useNewUrlParser: true }
-  )
+  .connect(MONGO_URI, { useUnifiedTopology: true, useNewUrlParser: true })
   .then(() => console.log("MongoDB connectedd"))
   .catch((err) => console.log(err));
