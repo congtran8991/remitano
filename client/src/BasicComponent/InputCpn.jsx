@@ -1,9 +1,24 @@
 import React from "react";
 
 const InputCpn = (props) => {
-  const { value = "", placeholder = "" } = props;
+  const {
+    value = "",
+    placeholder = "",
+    onChange = () => {},
+    name = "",
+    type = "text",
+    style = {},
+  } = props;
   return (
-    <input className="input-cpn" value={value} placeholder={placeholder} />
+    <input
+      type={type}
+      name={name}
+      className="input-cpn"
+      value={value}
+      placeholder={placeholder}
+      onChange={onChange}
+      style={style}
+    />
   );
 };
 
