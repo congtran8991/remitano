@@ -31,6 +31,6 @@ app.listen(port, () => {
 });
 
 mongoose
-  .connect("mongodb+srv://congtran8991:PYdZxei8ERjKwqXF@cluster0.xyento7.mongodb.net/DbRemi", { useUnifiedTopology: true, useNewUrlParser: true })
+  .connect(MONGO_URI, { useUnifiedTopology: true, useNewUrlParser: true })
   .then(() => console.log("MongoDB connectedd"))
   .catch((err) => console.log(err));
