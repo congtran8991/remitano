@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import { AXIOS } from "../../Utils/axios";
 import { setCookie } from "../../Utils/client";
+import { toast } from "react-toastify";
 
 const initialState = {
   isLoading: false,
@@ -20,8 +21,18 @@ export const userLogin = createAsyncThunk(
       };
       const dataApi = await AXIOS(param);
       setCookie("token", dataApi.token, 1);
+      toast.success(dataApi.message, {
+        position: "top-right",
+        autoClose: 3000,
+        theme: "light",
+      });
       return { isSuccess: true, data: dataApi };
     } catch (error) {
+      toast.success(error.message, {
+        position: "top-right",
+        autoClose: 3000,
+        theme: "light",
+      });
       return { isSuccess: false, error: error.message };
     }
   }

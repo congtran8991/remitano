@@ -13,7 +13,6 @@ export const AXIOS = function (param) {
     data,
     timeout: 2 * 60 * 1000,
   };
-  console.log(config)
   return new Promise((resolve, reject) => {
     axios(config)
       .then((resp) => {

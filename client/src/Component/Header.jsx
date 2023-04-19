@@ -8,12 +8,12 @@ import {
   userLoginSlice,
   logoutUser,
 } from "../Redux/reducer/userLoginSlice";
-import { removeCookie } from "../Utils/client";
+import { toast } from "react-toastify";
+import { removeCookie, validateEmail } from "../Utils/client";
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const dataUserLogin = useSelector(userLoginSlice);
-  console.log(dataUserLogin);
   const [infoLogin, setInfoLogin] = useState({ email: "", passWord: "" });
   const handleUserLogin = (e) => {
     const { name, value } = e.target;
@@ -27,7 +27,7 @@ const Header = () => {
           <div className="right-header">
             <InputCpn
               type="password"
-              value={infoLogin.passWord}
+              value={infoLogin.passWord.trim()}
               name="passWord"
               placeholder="Password"
               onChange={handleUserLogin}
@@ -42,6 +42,12 @@ const Header = () => {
             <ButtonCpn
               onClick={() => {
                 const { email, passWord } = infoLogin;
+                if (!validateEmail(email) || passWord.length === 0)
+                  return toast.warn("Email đăng nhập không hợp lệ", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    theme: "light",
+                  });
                 dispatch(userLogin({ email, passWord }));
               }}
               title="Login/Register"

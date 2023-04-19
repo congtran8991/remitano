@@ -7,7 +7,6 @@ import { userLoginSlice } from "../Redux/reducer/userLoginSlice";
 import { AXIOS } from "../Utils/axios";
 import { validateYouTubeUrl } from "../Utils/client";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 const SharePage = () => {
   const dataUserLogin = useSelector(userLoginSlice);
   const navigate = useNavigate();
@@ -31,7 +30,10 @@ const SharePage = () => {
         path: "/movie/addListMovie",
         data: {
           url: urlVideo,
-          userId: dataUserLogin.data.data.id,
+          user: {
+            userId: dataUserLogin.data.data.id,
+            email: dataUserLogin.data.data.email
+          },
         },
         method: "POST",
       };
