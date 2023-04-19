@@ -27,7 +27,7 @@ const HomePage = () => {
           return (
             <div key={item._id} className="row-video">
               <Video url={item.url} />
-              <Information />
+              <Information email={item.user.email} />
             </div>
           );
         })}
