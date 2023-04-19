@@ -1,33 +1,17 @@
 const express = require("express");
 const movie = require("../Model/movie");
-const user = require("../Model/user");
+const { validateYouTubeUrl } = require("../Utils");
 const router = express.Router();
-
-// router.post("/addListMovie", (req, res) => {
-//   const { url, userId } = req.body;
-//   let dataMovie = new movie({
-//     url: url,
-//     userId,
-//   });
-//   dataMovie
-//     .save()
-//     .then(() => {
-//       return res.status(200).json({
-//         success: true,
-//         message: "Thêm Url thành công",
-//       });
-//     })
-//     .catch((err) => {
-//       res.send({
-//         success: false,
-//         message: "Thêm URL không thành công",
-//         err,
-//       });
-//     });
-// });
 
 router.post("/addListMovie", async (req, res) => {
   const { url, user } = req.body;
+  const isValidateUrl = validateYouTubeUrl(url);
+  if (!isValidateUrl) {
+    return res.send({
+      success: false,
+      message: "URL không hợp lệ",
+    });
+  }
   let dataMovie = new movie({
     url: url,
     user,

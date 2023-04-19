@@ -1,16 +1,27 @@
-const express = require('express');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const express = require("express");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
-const login = require('../Model/user');
-const checkToken = require('./checkToken');
+const login = require("../Model/user");
+const checkToken = require("./checkToken");
+const { validateEmail } = require("../Utils");
 const auth = checkToken.checkToken;
 const { JWT_SECRET } = process.env;
 
 const router = express.Router();
 
-router.post('/regis', async (req, res) => {
+router.post("/regis", async (req, res) => {
   const { email, passWord } = req.body;
+  if (
+    !validateEmail(email) ||
+    passWord.length === 0 ||
+    passWord.includes(" ")
+  ) {
+    return res.status(401).json({
+      success: false,
+      message: "Login không thành công. Email hoặc mật khẩu chưa chính sácw",
+    });
+  }
 
   try {
     const user = await login.findOne({ email });
@@ -25,13 +36,13 @@ router.post('/regis', async (req, res) => {
         return res.status(200).json({
           success: true,
           token,
-          message: 'Login thành công',
+          message: "Login thành công",
           data: { email: user.email, id: user.id },
         });
       } else {
         return res.status(401).json({
           success: false,
-          message: 'Login không thành công. Email hoặc mật khẩu chưa chính sác',
+          message: "Login không thành công. Email hoặc mật khẩu chưa chính sác",
         });
       }
     } else {
@@ -47,20 +58,19 @@ router.post('/regis', async (req, res) => {
       return res.status(200).json({
         success: true,
         token,
-        message: 'Đăng kí thành công',
+        message: "Đăng kí thành công",
         data: { email, id: savedUser.id },
       });
     }
   } catch (err) {
-    console.error(err);
-    return res.status(500).json({ success: false, message: 'Lỗi server' });
+    return res.status(500).json({ success: false, message: "Lỗi server" });
   }
 });
 
-router.post('/checkToken', auth, (req, res) => {
+router.post("/checkToken", auth, (req, res) => {
   return res.status(200).json({
     success: true,
-    message: 'Login thành công',
+    message: "Login thành công",
     data: { email: req.user.email, id: req.user.id },
   });
 });
