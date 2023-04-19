@@ -1,9 +1,8 @@
 import { lazy } from "react";
-import { createBrowserRouter } from "react-router-dom";
 import HomePage from "../Page/HomePage";
 const SharePage = lazy(() => import("../Page/Share"));
 
-const routes = [
+export const routes = [
   {
     path: "/",
     exact: false,
@@ -20,4 +19,3 @@ const routes = [
   },
 ];
 
-export const routers = createBrowserRouter(routes);

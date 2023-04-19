@@ -1,22 +1,24 @@
 import React, { Suspense } from "react";
-import Header from "./Component/Header";
 import Navigation from "./Navigation";
-import "./App.css"
-//import { useSelector, useDispatch } from "react-redux";
-// import { updateTheme, themeValue } from "./Redux/reducer/themeSlice";
+import "./App.css";
+// import { useDispatch } from "react-redux";
 
 function App() {
-  // const dispatch = useDispatch();
-  // const theme = useSelector(themeValue);
+  // const theme = useSelector(dataUser);
   // const stableDispatch = useCallback(dispatch, [dispatch]);
+  // useEffect(() => {
+  //   const themeLocal = localStorage.getItem("theme-App") || "light";
+  //   stableDispatch(userLogin(themeLocal));
+  // }, [stableDispatch]);
 
   return (
     <div className="app">
-      <Header />
+      {/* <Header /> */}
       <Suspense fallback={<div>Loading...</div>}>
-        <Navigation />
+        {/* <BrowserRouter> */}
+          <Navigation />
+        {/* </BrowserRouter> */}
       </Suspense>
-      {/* Footer */}
     </div>
   );
 }
