@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomePage Render HomePage 1`] = `undefined`;
+
+exports[`SharePage Render SharePage 1`] = `undefined`;
+
+exports[`SharePage Should update URL video 1`] = `undefined`;

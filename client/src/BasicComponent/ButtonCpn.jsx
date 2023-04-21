@@ -1,9 +1,14 @@
 import React from "react";
 
 const ButtonCpn = (props) => {
-  const { title = "", onClick = () => {}, style = {} } = props;
+  const { title = "", onClick = () => {}, style = {}, dataTestId = "defaultTestId" } = props;
   return (
-    <button style={style} onClick={onClick} className="btn">
+    <button
+      data-testid={dataTestId}
+      style={style}
+      onClick={onClick}
+      className="btn"
+    >
       {title}
     </button>
   );

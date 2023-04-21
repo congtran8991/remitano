@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import InputCpn from "../BasicComponent/InputCpn";
 import ButtonCpn from "../BasicComponent/ButtonCpn";
@@ -11,12 +11,15 @@ const SharePage = () => {
   const dataUserLogin = useSelector(userLoginSlice);
   const navigate = useNavigate();
   const [urlVideo, setUrlVideo] = useState("");
+  useEffect(() => {
+    if (!dataUserLogin.isLogin) {
+      return navigate("/");
+    }
+  }, [dataUserLogin.isLogin])
   const handleChangeUrl = (e) => {
     setUrlVideo(e.target.value);
   };
-  if (!dataUserLogin.isLogin) {
-    return navigate("/");
-  }
+  
   const handleShareUrl = async () => {
     const isValidateUrl = validateYouTubeUrl(urlVideo);
     if (!isValidateUrl)
@@ -58,6 +61,7 @@ const SharePage = () => {
       <div>
         <div>
           <InputCpn
+            dataTestId="input-url"
             value={urlVideo}
             onChange={handleChangeUrl}
             style={{ height: "30px", width: "300px" }}
@@ -65,6 +69,7 @@ const SharePage = () => {
         </div>
         <div>
           <ButtonCpn
+            dataTestId="btn-shareUrl"
             style={{ height: "30px", width: "305px", marginTop: "5px" }}
             title="Share"
             onClick={handleShareUrl}

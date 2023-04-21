@@ -28,7 +28,7 @@ export const userLogin = createAsyncThunk(
       });
       return { isSuccess: true, data: dataApi };
     } catch (error) {
-      toast.success(error.message, {
+      toast.warn(error.message, {
         position: "top-right",
         autoClose: 3000,
         theme: "light",

@@ -26,7 +26,7 @@ router.post("/regis", async (req, res) => {
     const user = await login.findOne({ email });
 
     if (user) {
-      const payload = { email, id: user.id };
+      const payload = { email, id: user.id, exp: Math.floor(Date.now() / 1000) + (10 * 60) };
       const token = jwt.sign(payload, JWT_SECRET);
 
       const isPasswordMatch = await bcrypt.compare(passWord, user.passWord);
@@ -36,7 +36,7 @@ router.post("/regis", async (req, res) => {
           success: true,
           token,
           message: "Login thành công",
-          data: { email: user.email, id: user.id },
+          data: { email: user.email, id: user.id},
         });
       } else {
         return res.status(401).json({
@@ -51,7 +51,7 @@ router.post("/regis", async (req, res) => {
       const newUser = new login({ email, passWord: hashedPassword });
       const savedUser = await newUser.save();
 
-      const payload = { email, id: savedUser.id };
+      const payload = { email, id: savedUser.id, exp: Math.floor(Date.now() / 1000) + (10 * 60) };
       const token = jwt.sign(payload, JWT_SECRET);
 
       return res.status(200).json({

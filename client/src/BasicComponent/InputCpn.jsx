@@ -8,9 +8,11 @@ const InputCpn = (props) => {
     name = "",
     type = "text",
     style = {},
+    dataTestId = "defaultTestInputId",
   } = props;
   return (
     <input
+      data-testid={dataTestId}
       type={type}
       name={name}
       className="input-cpn"

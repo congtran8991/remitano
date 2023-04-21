@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomePage Render HomePage 1`] = `undefined`;
+
+exports[`HomePage renders component HomePage 1`] = `undefined`;
+
+exports[`HomePage renders component HomePage 2`] = `
+<div>
+  <div
+    class="home-page"
+  >
+    <div
+      class="list-video"
+    />
+  </div>
+</div>
+`;
