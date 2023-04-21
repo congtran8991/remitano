@@ -15,7 +15,7 @@ const HomePage = () => {
         method: "GET",
       };
       let dataApi = await AXIOS(param);
-      setListDataMovie(dataApi.data);
+      setListDataMovie(dataApi.data.reverse());
     } catch (error) {
       setListDataMovie([]);
     }
