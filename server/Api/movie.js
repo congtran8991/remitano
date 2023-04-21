@@ -1,9 +1,11 @@
 const express = require("express");
 const movie = require("../Model/movie");
 const { validateYouTubeUrl } = require("../Utils");
+const checkToken = require("./checkToken");
+const auth = checkToken.checkToken;
 const router = express.Router();
 
-router.post("/addListMovie", async (req, res) => {
+router.post("/addListMovie", auth, async (req, res) => {
   const { url, user } = req.body;
   const isValidateUrl = validateYouTubeUrl(url);
   if (!isValidateUrl) {

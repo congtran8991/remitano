@@ -1,7 +1,7 @@
 import axios from "axios";
 import appConfig from "../Constants/config";
 export const AXIOS = function (param) {
-  const { path = "/", method = "GET", data = {}, overrideDomain, token = "" } = param;
+  const { path = "/", method = "GET", data = {}, overrideDomain, token = {} } = param;
   let url = (overrideDomain || appConfig.api_domain) + path;
   let config = {
     headers: {

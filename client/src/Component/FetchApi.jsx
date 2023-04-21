@@ -5,9 +5,11 @@ import { getCookie, removeCookie } from "../Utils/client";
 const FetchApi = () => {
     const dispatch = useDispatch();
     useEffect(() => {
-        const token = getCookie("token");
-        !token && removeCookie("token")
-        token && dispatch(checkSession(token))
+        const accessToken = getCookie("access_token");
+        const refreshToken = getCookie("refresh_token");
+        !accessToken && removeCookie("access_token")
+        !refreshToken && removeCookie("refreshToken")
+        refreshToken && dispatch(checkSession(refreshToken))
     }, [dispatch])
     return null
 }

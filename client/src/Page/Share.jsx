@@ -5,6 +5,7 @@ import ButtonCpn from "../BasicComponent/ButtonCpn";
 import { useNavigate } from "react-router-dom";
 import { userLoginSlice } from "../Redux/reducer/userLoginSlice";
 import { AXIOS } from "../Utils/axios";
+import { getCookie } from "../Utils/client";
 import { validateYouTubeUrl } from "../Utils/client";
 import { toast } from "react-toastify";
 const SharePage = () => {
@@ -15,11 +16,11 @@ const SharePage = () => {
     if (!dataUserLogin.isLogin) {
       return navigate("/");
     }
-  }, [dataUserLogin.isLogin])
+  }, [dataUserLogin.isLogin, navigate]);
   const handleChangeUrl = (e) => {
     setUrlVideo(e.target.value);
   };
-  
+
   const handleShareUrl = async () => {
     const isValidateUrl = validateYouTubeUrl(urlVideo);
     if (!isValidateUrl)
@@ -29,13 +30,15 @@ const SharePage = () => {
         theme: "light",
       });
     try {
+      const refreshToken = getCookie("refresh_token");
       const param = {
         path: "/movie/addListMovie",
+        token: refreshToken,
         data: {
           url: urlVideo,
           user: {
             userId: dataUserLogin.data.data.id,
-            email: dataUserLogin.data.data.email
+            email: dataUserLogin.data.data.email,
           },
         },
         method: "POST",

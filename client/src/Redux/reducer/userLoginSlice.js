@@ -20,7 +20,8 @@ export const userLogin = createAsyncThunk(
         method: "POST",
       };
       const dataApi = await AXIOS(param);
-      setCookie("token", dataApi.token, 1);
+      setCookie("access_token", dataApi.accessToken, 1); // setCookie accessToken
+      setCookie("refresh_token", dataApi.refreshToken, 1); // setCookie refreshToken
       toast.success(dataApi.message, {
         position: "top-right",
         autoClose: 3000,
@@ -48,6 +49,7 @@ export const checkSession = createAsyncThunk(
         method: "POST",
       };
       const dataApi = await AXIOS(param);
+      setCookie("access_token", dataApi.accessToken, 1); // setCookie accessToken
       return { isSuccess: true, data: dataApi };
     } catch (error) {
       return { isSuccess: false, error: error.message };

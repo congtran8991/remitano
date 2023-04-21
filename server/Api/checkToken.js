@@ -1,21 +1,23 @@
 let jwt = require("jsonwebtoken");
+const { JWT_REFRESH } = process.env;
 
-let checkToken = (req, res, next) => {
-  let token = req.headers["authorization"];
-  if (!token)
+const checkToken = (req, res, next) => {
+  const refreshToken = req.headers["authorization"];
+  if (!refreshToken)
     return res.status(401).send({
       data: {},
       error: -200,
       msg: "No token provided.",
     });
   try {
-    const decoded = jwt.verify(token, "SECRET");
+    const decoded = jwt.verify(refreshToken, JWT_REFRESH);
     req.user = decoded;
     next();
   } catch (e) {
     res.status(401).send({ data: {}, error: -100, msg: "Token is not valid" });
   }
 };
+
 module.exports = {
   checkToken,
 };

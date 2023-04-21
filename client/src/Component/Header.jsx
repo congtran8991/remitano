@@ -30,6 +30,11 @@ const Header = () => {
     }
     dispatch(userLogin({ email, passWord }));
   };
+  const handleLogout = () => {
+    removeCookie("access_token");
+    removeCookie("refresh_token");
+    dispatch(logoutUser());
+  }
   return (
     <div className="wrapper-header">
       <div className="header">
@@ -71,10 +76,7 @@ const Header = () => {
             />
             <ButtonCpn
               dataTestId="btn-logout"
-              onClick={() => {
-                removeCookie("token");
-                dispatch(logoutUser());
-              }}
+              onClick={handleLogout}
               title="Logout"
             />
           </div>

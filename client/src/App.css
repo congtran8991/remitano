@@ -28,6 +28,8 @@
   margin-top: 30px;
   padding-left: 100px;
   padding-right: 100px;
+  overflow-y: auto;
+  height: calc(100vh - 150px)
 }
 
 .row-video {
@@ -38,7 +40,7 @@
 }
 
 .video {
-  /* width: 50%; */
+  /* width: 30%; */
 }
 
 .information-video {
@@ -78,6 +80,17 @@
   width: 100%;
   height: 100%;
   justify-content: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+@media only screen and (max-width: 1000px) {
+  html {
+    min-width: 60%;
+    /* max-width: 90%; */
+  }
 }
 
 

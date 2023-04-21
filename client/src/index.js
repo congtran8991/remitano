@@ -16,10 +16,12 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
+        <div style={{minWidth: "62.5rem"}}>
         <ToastContainer />
         <FetchApi />
         <Header />
         <App />
+        </div>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>
