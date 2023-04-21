@@ -78,6 +78,14 @@ const SharePage = () => {
             onClick={handleShareUrl}
           />
         </div>
+        <div
+          className="back-home"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          Trở lại Home page
+        </div>
       </div>
     </div>
   );

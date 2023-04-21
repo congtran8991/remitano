@@ -86,6 +86,16 @@
   text-align: center;
 }
 
+.pointer{
+  cursor: pointer;
+}
+
+.back-home{
+  text-align: center;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
 @media only screen and (max-width: 1000px) {
   html {
     min-width: 60%;
