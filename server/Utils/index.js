@@ -1,3 +1,7 @@
+const authenticateJWT = require("./authenticateJWT");
+const cache = require("./cache");
+const bcrypt = require("bcrypt");
+
 const validateYouTubeUrl = (url) => {
   var p =
     /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
@@ -16,7 +20,16 @@ const validateEmail = (email) => {
     );
 };
 
+const hashedPassword = async (password) => {
+  const salt = await bcrypt.genSalt(10);
+  const hashed = await bcrypt.hash(password, salt);
+  return [hashed];
+};
+
 module.exports = {
   validateYouTubeUrl,
   validateEmail,
+  authenticateJWT,
+  hashedPassword,
+  cache
 };

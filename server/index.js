@@ -1,14 +1,17 @@
-const express = require("express");
+import express from "express";
 require("dotenv").config();
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-const apiUser = require("./Api/userLogin");
-const apiMovie = require("./Api/movie");
+import { cache } from "./Utils";
+import { urlencoded, json } from "body-parser";
+import redis from "redis";
+
+import apiUsers from "./Api/user";
 const app = express();
-const { MONGO_URI } = process.env;
+// const db = require("./Config/db")
+
+//const { MONGO_URI } = process.env;
 const port = "4000";
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(urlencoded({ extended: false }));
+app.use(json());
 app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -23,14 +26,24 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use("/api/loginUser", apiUser);
-app.use("/api/movie", apiMovie);
+app.use("/users", apiUsers);
+
+app.use((err, req, res, next) => {
+  res.status(400).json({
+    success: false,
+    message: err.message,
+    code: err.code,
+  });
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
-mongoose
-  .connect("mongodb+srv://congtran8991:PYdZxei8ERjKwqXF@cluster0.xyento7.mongodb.net/DbRemi", { useUnifiedTopology: true, useNewUrlParser: true })
-  .then(() => console.log("MongoDB connectedd"))
-  .catch((err) => console.log(err));
+// db.connect(function (err) {
+//   if (err) throw err;
+//   console.log("Connected Db!!!");
+// })
+cache.init();
+cache.quit();
+cache.testLog();

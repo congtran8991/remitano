@@ -2,7 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const login = require("../Model/user");
+const login = require("../Models/user");
 const checkToken = require("./checkToken");
 const { validateEmail } = require("../Utils");
 const auth = checkToken.checkToken;
@@ -76,8 +76,7 @@ router.post("/regis", async (req, res) => {
       return res.status(200).json({
         success: true,
         accessToken,
-        refreshToken,
-        message: "Đăng kí thành công",
+        message: "login thành công",
         data: { email, id: savedUser.id },
       });
     }

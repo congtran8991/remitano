@@ -1,9 +1,9 @@
-const express = require("express");
-const movie = require("../Model/movie");
-const { validateYouTubeUrl } = require("../Utils");
-const checkToken = require("./checkToken");
-const auth = checkToken.checkToken;
-const router = express.Router();
+import { Router } from "express";
+import movie, { find } from "../Models/movie";
+import { validateYouTubeUrl } from "../Utils";
+import { checkToken as _checkToken } from "./checkToken";
+const auth = _checkToken;
+const router = Router();
 
 router.post("/addListMovie", auth, async (req, res) => {
   const { url, user } = req.body;
@@ -35,7 +35,7 @@ router.post("/addListMovie", auth, async (req, res) => {
 
 router.get("/listMovie", async (req, res) => {
   try {
-    const dataMovie = await movie.find({});
+    const dataMovie = await find({});
     res.status(200).json({
       success: true,
       message: "Lấy danh sách thành công",
@@ -51,4 +51,4 @@ router.get("/listMovie", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

@@ -1,4 +1,4 @@
-import { verify } from "jsonwebtoken";
+let jwt = require("jsonwebtoken");
 const { JWT_REFRESH } = process.env;
 
 const checkToken = (req, res, next) => {
@@ -10,7 +10,7 @@ const checkToken = (req, res, next) => {
       message: "No token provided.",
     });
   try {
-    const decoded = verify(refreshToken, JWT_REFRESH);
+    const decoded = jwt.verify(refreshToken, JWT_REFRESH);
     req.user = decoded;
     next();
   } catch (e) {
@@ -18,6 +18,4 @@ const checkToken = (req, res, next) => {
   }
 };
 
-export default {
-  checkToken,
-};
+module.exports = checkToken
