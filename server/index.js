@@ -1,17 +1,22 @@
-import express from "express";
-require("dotenv").config();
-import { cache } from "./Utils";
-import { urlencoded, json } from "body-parser";
-import redis from "redis";
+const express = require("express");
+const path = require('path')
 
-import apiUsers from "./Api/user";
+require("dotenv").config();
+const { cache } = require("./Utils");
+const bodyParser = require("body-parser");
+const redis = require("redis");
+
+const apiUsers = require("./Api/user");
+const apiProduct = require("./Api/product");
+const apiCategory = require("./Api/category")
+
 const app = express();
-// const db = require("./Config/db")
+const db = require("./Config/db")
 
 //const { MONGO_URI } = process.env;
 const port = "4000";
-app.use(urlencoded({ extended: false }));
-app.use(json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -26,11 +31,20 @@ app.use(function (req, res, next) {
   next();
 });
 
+(async () => {
+   cache.init();
+})()
+
+app.get(express.static( "./upload"));
+// app.use(express.static('../public'))
+
 app.use("/users", apiUsers);
+app.use("/product", apiProduct)
+app.use("/category", apiCategory)
 
 app.use((err, req, res, next) => {
   res.status(400).json({
-    success: false,
+    isSuccess: false,
     message: err.message,
     code: err.code,
   });
@@ -41,9 +55,10 @@ app.listen(port, () => {
 });
 
 // db.connect(function (err) {
+//   console.log("hvhshvhs")
 //   if (err) throw err;
 //   console.log("Connected Db!!!");
 // })
-cache.init();
-cache.quit();
-cache.testLog();
+
+// cache.quit();
+// cache.testLog();

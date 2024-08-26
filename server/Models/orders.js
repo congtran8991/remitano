@@ -21,8 +21,8 @@ class Orders {
       return DB.execute(sql);
     }
   
-    static findAll() {
-      let sql = "SELECT * FROM Orders;";
+    static findAllOrdersToUser(userId) {
+      let sql = `SELECT * FROM Orders WHERE Orders.userId = userId;`;
       return DB.execute(sql);
     }
   }

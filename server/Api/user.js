@@ -1,11 +1,13 @@
-import { Router } from 'express'
-import usersControllers from '../Controllers/users'
-import { authenticateJWT } from '../Utils'
+const express = require('express')
+const usersControllers = require('../Controllers/users')
+const { authenticateJWT } = require('../Utils')
 
-const router = Router()
+const router = express.Router()
 
-router.route('/').get(usersControllers.getAllUser)
+router.route('/').get(authenticateJWT,usersControllers.getAllUser)
 router.route('/register').post(usersControllers.createNewUser)
 router.route('/login').post(usersControllers.loginAccount)
+router.route('/refresh-token').post(usersControllers.refreshTokenService)
 
-export default router
+
+module.exports = router

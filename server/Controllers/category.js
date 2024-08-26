@@ -2,16 +2,17 @@ const categoryModel = require("../Models/category");
 
 const createNewCategory = async (req, res, next) => {
   try {
-    const { name, image, description, url, active, parent } = req.body;
-    const category = new categoryModel();
-    category = await category.save(
+    const { name, image, description, url, active, parentId } = req.body;
+    console.log(req.body, "svhshvhshvs");
+    const category = new categoryModel(
       name,
       image,
       description,
       url,
       active,
-      parent
+      parentId || null
     );
+    await category.save();
     return res.status(200).json({
       status: 200,
       message: "Post Created",
@@ -21,7 +22,7 @@ const createNewCategory = async (req, res, next) => {
   }
 };
 
-const getAllCategory = async () => {
+const getAllCategory = async (_, res, next) => {
   try {
     const [result] = await categoryModel.findAll();
     return res.status(200).json({

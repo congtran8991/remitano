@@ -1,11 +1,13 @@
+const DB = require('../Config/db')
+
 class Category {
-  constructor(name, image, description, url, active, parent) {
+  constructor(name, image, description, url, active, parentId) {
     this.name = name;
     this.image = image;
     this.description = description;
     this.url = url;
     this.active = active;
-    this.parent = parent;
+    this.parentId = parentId;
   }
 
   save() {
@@ -16,7 +18,7 @@ class Category {
         description,
         url,
         active,
-        parent
+        parentId
     )
     VALUES(
       '${this.name}',
@@ -24,7 +26,7 @@ class Category {
       '${this.description}',
       '${this.url}',
       '${this.active}',
-      '${this.parent}'
+      ${this.parentId}
     )
     `;
     return DB.execute(sql);

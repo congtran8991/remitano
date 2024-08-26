@@ -1,3 +1,5 @@
+const DB= require('../Config/db')
+
 class categoryProduct {
     constructor(categoryId, productId) {
       this.categoryId = categoryId;
@@ -12,15 +14,14 @@ class categoryProduct {
       )
       VALUES(
         '${this.categoryId}',
-        '${this.sumPrice}',
         '${this.productId}'
       )
       `;
       return DB.execute(sql);
     }
   
-    static findAll() {
-      let sql = "SELECT * FROM CategoryProduct;";
+    static findAllProductToCategory(categoryId) {
+      let sql = `SELECT * FROM Product JOIN CategoryProduct ON Product.id = CategoryProduct.id WHERE CategoryProduct.id = ${categoryId};`;
       return DB.execute(sql);
     }
   }

@@ -1,6 +1,9 @@
+const jwt = require("jsonwebtoken");
+
 const authenticateJWT = require("./authenticateJWT");
 const cache = require("./cache");
 const bcrypt = require("bcrypt");
+const { JWT_SECRET, JWT_REFRESH } = process.env;
 
 const validateYouTubeUrl = (url) => {
   var p =
@@ -26,10 +29,22 @@ const hashedPassword = async (password) => {
   return [hashed];
 };
 
+const generalAccessToken = (payLoad) => {
+  const accessToken = jwt.sign(payLoad, JWT_SECRET);
+  return accessToken
+}
+
+const generalRefreshToken = (payLoad) => {
+  const refreshToken = jwt.sign(payLoad, JWT_REFRESH);
+  return refreshToken
+}
+
 module.exports = {
   validateYouTubeUrl,
   validateEmail,
   authenticateJWT,
   hashedPassword,
+  generalAccessToken,
+  generalRefreshToken,
   cache
 };

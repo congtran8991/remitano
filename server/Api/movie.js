@@ -10,7 +10,7 @@ router.post("/addListMovie", auth, async (req, res) => {
   const isValidateUrl = validateYouTubeUrl(url);
   if (!isValidateUrl) {
     return res.send({
-      success: false,
+      isSuccess: false,
       message: "URL không hợp lệ",
     });
   }
@@ -21,12 +21,12 @@ router.post("/addListMovie", auth, async (req, res) => {
   try {
     await dataMovie.save();
     return res.status(200).json({
-      success: true,
+      isSuccess: true,
       message: "Thêm Url thành công",
     });
   } catch (err) {
     res.send({
-      success: false,
+      isSuccess: false,
       message: "Thêm URL không thành công",
       err,
     });
@@ -37,13 +37,13 @@ router.get("/listMovie", async (req, res) => {
   try {
     const dataMovie = await find({});
     res.status(200).json({
-      success: true,
+      isSuccess: true,
       message: "Lấy danh sách thành công",
       data: dataMovie,
     });
   } catch (err) {
     res.send({
-      success: false,
+      isSuccess: false,
       message: "Lấy danh sách không thành công",
       data: [],
       err,

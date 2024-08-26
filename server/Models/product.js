@@ -1,5 +1,7 @@
+const DB = require('../Config/db')
+
 class Product {
-  constructor(name, amount, price, oldPrice, optionValue, images, description, specs) {
+  constructor(name, amount = 0, price = 0, oldPrice = 0, optionValue, images, description, specs) {
     this.name = name;
     this.amount = amount;
     this.price = price;
@@ -11,6 +13,7 @@ class Product {
   }
 
   save() {
+    console.log(this.name)
     let sql = `
     INSERT INTO Product(
         name,
@@ -24,19 +27,25 @@ class Product {
     )
     VALUES(
       '${this.name}',
-      '${this.image}',
+      '${this.amount}',
+      '${this.price}',
+      '${this.oldPrice}',
+      '${this.optionValue}',
+      '${this.images}',
       '${this.description}',
-      '${this.url}',
-      '${this.active}',
-      '${this.parent}'
+      '${this.specs}'
     )
     `;
     return DB.execute(sql);
   }
 
   static findAll() {
-    let sql = "SELECT * FROM Category;";
+    let sql = "SELECT * FROM Product;";
     return DB.execute(sql);
+  }
+
+  static findFromCategory() {
+    
   }
 }
 

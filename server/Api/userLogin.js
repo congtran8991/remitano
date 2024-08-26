@@ -17,7 +17,7 @@ router.post("/regis", async (req, res) => {
     passWord.includes(" ")
   ) {
     return res.status(401).json({
-      success: false,
+      isSuccess: false,
       message: "Login không thành công. Email hoặc mật khẩu chưa chính sácw",
     });
   }
@@ -42,7 +42,7 @@ router.post("/regis", async (req, res) => {
 
       if (isPasswordMatch) {
         return res.status(200).json({
-          success: true,
+          isSuccess: true,
           accessToken,
           refreshToken,
           message: "Login thành công",
@@ -50,7 +50,7 @@ router.post("/regis", async (req, res) => {
         });
       } else {
         return res.status(401).json({
-          success: false,
+          isSuccess: false,
           message: "Login không thành công. Email hoặc mật khẩu chưa chính sác",
         });
       }
@@ -74,14 +74,14 @@ router.post("/regis", async (req, res) => {
       const accessToken = jwt.sign(payloadAccessToken, JWT_SECRET);
       const refreshToken = jwt.sign(payloadRefreshToken, JWT_REFRESH);
       return res.status(200).json({
-        success: true,
+        isSuccess: true,
         accessToken,
         message: "login thành công",
         data: { email, id: savedUser.id },
       });
     }
   } catch (err) {
-    return res.status(500).json({ success: false, message: "Lỗi server" });
+    return res.status(500).json({ isSuccess: false, message: "Lỗi server" });
   }
 });
 
@@ -94,7 +94,7 @@ router.post("/checkToken", auth, (req, res) => {
   };
   const accessToken = jwt.sign(payloadAccessToken, JWT_SECRET);
   return res.status(200).json({
-    success: true,
+    isSuccess: true,
     accessToken,
     message: "Login thành công",
     data: { email: req.user.email, id: req.user.id },

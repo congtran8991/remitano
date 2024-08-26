@@ -33,8 +33,8 @@ class Users {
     return DB.execute(sql)
   }
 
-  static findOneUser(username) {
-    let sql = `SELECT * FROM Users WHERE username = '${username}' LIMIT 1`;
+  static findOneUser(email) {
+    let sql = `SELECT * FROM Users WHERE username = '${email}' LIMIT 1`;
     return DB.execute(sql);
   }
 
